@@ -1,0 +1,19 @@
+<div id="<%= dom_id member %>" class="content">
+  <div class="columns">
+    <div class="column">
+      <div class="field">
+        <label class="label">User</label>
+        <p class="subtitle is-6"><%= member.user.email if member.user %></p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="field">
+        <label class="label">Tenant</label>
+        <p class="subtitle is-6"><%= member.tenant.name if member.tenant %></p>
+      </div>
+    </div>
+    <div class="column is-narrow">
+      <small class="has-text-grey">Added: <%= member.created_at.strftime("%B %d, %Y") %></small>
+    </div>
+  </div>
+</div>

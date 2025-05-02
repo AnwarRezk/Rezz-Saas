@@ -1,8 +1,7 @@
 <%= form_with(model: tenant) do |form| %>
   <% if tenant.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(tenant.errors.count, "error") %> prohibited this tenant from being saved:</h2>
-
+    <div class="notification is-danger">
+      <h2 class="subtitle"><%= pluralize(tenant.errors.count, "error") %> prohibited this tenant from being saved:</h2>
       <ul>
         <% tenant.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,12 +10,16 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="field">
+    <%= form.label :name, class: "label" %>
+    <div class="control">
+      <%= form.text_field :name, class: "input", placeholder: "Enter tenant name" %>
+    </div>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="field mt-4">
+    <div class="control">
+      <%= form.submit class: "button is-primary" %>
+    </div>
   </div>
 <% end %>

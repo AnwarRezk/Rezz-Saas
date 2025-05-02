@@ -1,10 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-6">
+      <div class="box">
+        <%= render @tenant %>
 
-<%= render @tenant %>
-
-<div>
-  <%= link_to "Edit this tenant", edit_tenant_path(@tenant) %> |
-  <%= link_to "Back to tenants", tenants_path %>
-
-  <%= button_to "Destroy this tenant", @tenant, method: :delete %>
+        <div class="buttons mt-4">
+          <%= link_to "Edit this tenant", edit_tenant_path(@tenant), class: "button is-warning" %>
+          <%= link_to "Back to tenants", tenants_path, class: "button is-light" %>
+          <%= button_to "Destroy this tenant", @tenant, method: :delete, class: "button is-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

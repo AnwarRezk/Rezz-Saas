@@ -3,48 +3,50 @@
     <div class="level">
       <div class="level-left">
         <div class="level-item">
-          <h1 class="title is-4">Tenants</h1>
+          <h1 class="title is-4">Members</h1>
         </div>
         <div class="level-item">
-          <span class="tag is-info is-light"><%= @tenants.count %> tenants</span>
+          <span class="tag is-info is-light"><%= @members.count %> members</span>
         </div>
       </div>
       <div class="level-right">
-        <%= link_to new_tenant_path, class: "button is-primary" do %>
+        <%= link_to new_member_path, class: "button is-primary" do %>
           <span class="icon">
             <i class="fas fa-plus"></i>
           </span>
-          <span>New Tenant</span>
+          <span>New Member</span>
         <% end %>
       </div>
     </div>
 
     <div class="table-container">
-      <% if @tenants.any? %>
+      <% if @members.any? %>
         <table class="table is-striped is-hoverable is-fullwidth">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
+              <th>User</th>
+              <th>Tenant</th>
               <th>Created At</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <% @tenants.each do |tenant| %>
+            <% @members.each do |member| %>
               <tr>
-                <td><%= tenant.id %></td>
-                <td><%= tenant.name %></td>
-                <td><%= tenant.created_at.strftime("%B %d, %Y") %></td>
+                <td><%= member.id %></td>
+                <td><%= member.user.email if member.user %></td>
+                <td><%= member.tenant.name if member.tenant %></td>
+                <td><%= member.created_at.strftime("%B %d, %Y") %></td>
                 <td>
                   <div class="buttons">
-                    <%= link_to tenant_path(tenant), class: "button is-small is-info" do %>
+                    <%= link_to member_path(member), class: "button is-small is-info" do %>
                       <span class="icon">
                         <i class="fas fa-eye"></i>
                       </span>
                       <span>View</span>
                     <% end %>
-                    <%= link_to edit_tenant_path(tenant), class: "button is-small is-warning" do %>
+                    <%= link_to edit_member_path(member), class: "button is-small is-warning" do %>
                       <span class="icon">
                         <i class="fas fa-edit"></i>
                       </span>
@@ -58,12 +60,12 @@
         </table>
       <% else %>
         <div class="has-text-centered py-6">
-          <p class="has-text-grey mb-4">No tenants found</p>
-          <%= link_to new_tenant_path, class: "button is-primary" do %>
+          <p class="has-text-grey mb-4">No members found</p>
+          <%= link_to new_member_path, class: "button is-primary" do %>
             <span class="icon">
               <i class="fas fa-plus"></i>
             </span>
-            <span>Create your first tenant</span>
+            <span>Add your first member</span>
           <% end %>
         </div>
       <% end %>

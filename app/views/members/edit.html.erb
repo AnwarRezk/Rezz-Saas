@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-6">
+      <div class="box">
+        <h1 class="title is-3">Edit member</h1>
+
+        <%= render "form", member: @member %>
+
+        <div class="buttons mt-4">
+          <%= link_to "Show this member", @member, class: "button is-info" %>
+          <%= link_to "Back to members", members_path, class: "button is-light" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

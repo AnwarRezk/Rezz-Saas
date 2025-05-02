@@ -1,0 +1,36 @@
+<%= form_with(model: member) do |form| %>
+  <% if member.errors.any? %>
+    <div class="notification is-danger">
+      <h2 class="subtitle"><%= pluralize(member.errors.count, "error") %> prohibited this member from being saved:</h2>
+      <ul>
+        <% member.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id, "User", class: "label" %>
+    <div class="control">
+      <div class="select is-fullwidth">
+        <%= form.collection_select :user_id, User.all, :id, :email, { prompt: "Select a user" } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :tenant_id, "Tenant", class: "label" %>
+    <div class="control">
+      <div class="select is-fullwidth">
+        <%= form.collection_select :tenant_id, Tenant.all, :id, :name, { prompt: "Select a tenant" } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field mt-4">
+    <div class="control">
+      <%= form.submit class: "button is-primary" %>
+    </div>
+  </div>
+<% end %>

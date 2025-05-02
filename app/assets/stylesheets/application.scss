@@ -1,4 +1,10 @@
+/*
+ *= require bulma
+ */
+
+// Custom variables and styles
 $primary: #8a4d76;
 $link: #ea4aaa;
 
-@import "bulma";
+// Import navbar styles
+@import "navbar";

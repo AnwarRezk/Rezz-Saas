@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-5">
+      <div class="box">
+        <h2 class="title is-4 has-text-centered">Edit Profile</h2>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="field">
+            <%= f.label :email, class: "label" %>
+            <div class="control has-icons-left">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input", placeholder: "Enter your email" %>
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div class="notification is-warning is-light">
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label :password, class: "label" %>
+            <div class="control has-icons-left">
+              <%= f.password_field :password, autocomplete: "new-password", class: "input", placeholder: "Leave blank if you don't want to change it" %>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </div>
+            <% if @minimum_password_length %>
+              <p class="help">Minimum <%= @minimum_password_length %> characters</p>
+            <% end %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password_confirmation, class: "label" %>
+            <div class="control has-icons-left">
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input", placeholder: "Confirm your new password" %>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :current_password, class: "label" %>
+            <div class="control has-icons-left">
+              <%= f.password_field :current_password, autocomplete: "current-password", class: "input", placeholder: "We need your current password to confirm your changes" %>
+              <span class="icon is-small is-left">
+                <i class="fas fa-key"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.submit "Update Profile", class: "button is-primary is-fullwidth" %>
+            </div>
+          </div>
+        <% end %>
+
+        <hr class="my-5">
+
+        <div class="box has-background-danger-light">
+          <h3 class="title is-5 has-text-danger">Cancel my account</h3>
+          <p class="mb-4">Unhappy with your account? You can cancel it below.</p>
+          <div class="buttons">
+            <%= button_to "Cancel my account", registration_path(resource_name), 
+                data: { confirm: "Are you sure? This action cannot be undone.", turbo_confirm: "Are you sure? This action cannot be undone." }, 
+                method: :delete, 
+                class: "button is-danger" %>
+          </div>
+        </div>
+
+        <div class="has-text-centered mt-4">
+          <%= link_to "Back", :back, class: "button is-light" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

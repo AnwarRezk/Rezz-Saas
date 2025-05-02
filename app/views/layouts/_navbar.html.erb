@@ -1,0 +1,77 @@
+<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to root_path, class: "navbar-item" do %>
+      <span class="icon-text">
+        <span class="icon">
+          <i class="fas fa-bolt"></i>
+        </span>
+        <span class="has-text-weight-bold">Rezz</span>
+      </span>
+    <% end %>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasic" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Home", root_path, class: "navbar-item" %>
+      <% if user_signed_in? %>
+        <%= link_to "Users", users_path, class: "navbar-item" %>
+      <% end %>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <% if user_signed_in? %>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-user-circle"></i>
+                </span>
+                <span><%= current_user.email %></span>
+              </span>
+            </a>
+
+            <div class="navbar-dropdown is-right">
+              <div class="navbar-item">
+                <div class="buttons is-fullwidth">
+                  <%= link_to edit_user_registration_path, class: "button is-ghost is-small is-fullwidth has-text-black" do %>
+                    <span class="icon-text">
+                      <span class="icon has-text-black">
+                        <i class="fas fa-user-edit"></i>
+                      </span>
+                      <span>Edit Profile</span>
+                    </span>
+                  <% end %>
+                </div>
+              </div>
+              <hr class="navbar-divider">
+              <div class="navbar-item">
+                <div class="buttons is-fullwidth">
+                  <%= button_to destroy_user_session_path, method: :delete, class: "button is-ghost is-small is-fullwidth has-text-black", form: { data: { turbo: true, turbo_confirm: "Are you sure you want to sign out?" } } do %>
+                    <span class="icon-text">
+                      <span class="icon has-text-black">
+                        <i class="fas fa-sign-out-alt"></i>
+                      </span>
+                      <span>Sign Out</span>
+                    </span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="buttons are-small">
+            <%= link_to "Sign In", new_user_session_path, class: "button is-light" %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "button is-light" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav> 

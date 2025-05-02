@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.erb": "erb",
+        "*.html.erb": "erb"
+    },
+    "emmet.includeLanguages": {
+        "erb": "html"
+    },
+    "files.trimTrailingWhitespace": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "aliariff.vscode-erb-formatter"
+} 

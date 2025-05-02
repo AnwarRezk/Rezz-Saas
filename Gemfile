@@ -36,7 +36,6 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 
 # Bulma gem for rails
-gem "bulma-rails"
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
@@ -51,3 +50,5 @@ group :development do
 
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
+
+gem "devise", "~> 4.9"

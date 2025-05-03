@@ -1,4 +1,28 @@
 <div class="container">
+  <div class="box mb-5">
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h2 class="title is-4">Invite New Member</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <p>Inviting member to tenant: <strong><%= @tenant.name %></strong></p>
+      <%= form_tag invite_members_path, method: :get, class: "mt-4" do %>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <%= email_field_tag :email, nil, class: "input", placeholder: "Enter email address", required: true %>
+          </div>
+          <div class="control">
+            <%= submit_tag "Send Invitation", class: "button is-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <div class="box">
     <div class="level">
       <div class="level-left">

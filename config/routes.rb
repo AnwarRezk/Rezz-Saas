@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :tenants do
     get :user_tenants, on: :collection
   end
-  resources :members
+  resources :members do
+    get :invite, on: :collection
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

@@ -6,6 +6,12 @@ class TenantsController < ApplicationController
     @tenants = Tenant.all
   end
 
+  # Get current logged in user's tenants
+  def user_tenants
+    @tenants = current_user.tenants
+    render :index
+  end
+
   # GET /tenants/1 or /tenants/1.json
   def show
   end
@@ -25,6 +31,8 @@ class TenantsController < ApplicationController
 
     respond_to do |format|
       if @tenant.save
+        # Create a member for the current user in the newly created tenant
+        @member = Member.create!(user_id: current_user.id, tenant_id: @tenant.id)
         format.html { redirect_to @tenant, notice: "Tenant was successfully created." }
         format.json { render :show, status: :created, location: @tenant }
       else

@@ -10,13 +10,14 @@
         </div>
       </div>
     </div>
-    
+
     <div class="table-container">
       <table class="table is-striped is-hoverable is-fullwidth">
         <thead>
           <tr>
             <th>ID</th>
             <th>Email</th>
+            <th>Tenants</th>
             <th>Created At</th>
             <th>Actions</th>
           </tr>
@@ -26,6 +27,7 @@
             <tr>
               <td><%= user.id %></td>
               <td><%= user.email %></td>
+              <td><%= user.tenants.compact.join(', ') if user.tenants %></td>
               <td><%= user.created_at.strftime("%B %d, %Y") %></td>
               <td>
                 <%= link_to user_path(user), class: "button is-small is-info" do %>

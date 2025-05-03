@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :users, only: [:index, :show]
-  resources :tenants
+  resources :tenants do
+    get :user_tenants, on: :collection
+  end
   resources :members
 
   get "up" => "rails/health#show", as: :rails_health_check

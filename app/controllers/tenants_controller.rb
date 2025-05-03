@@ -32,7 +32,7 @@ class TenantsController < ApplicationController
     respond_to do |format|
       if @tenant.save
         # Create a member for the current user in the newly created tenant
-        @member = Member.create!(user_id: current_user.id, tenant_id: @tenant.id)
+        @member = Member.create(user_id: current_user.id, tenant_id: @tenant.id)
         format.html { redirect_to @tenant, notice: "Tenant was successfully created." }
         format.json { render :show, status: :created, location: @tenant }
       else

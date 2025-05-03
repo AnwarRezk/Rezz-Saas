@@ -21,6 +21,8 @@
       <%= link_to "Home", root_path, class: "navbar-item" %>
       <% if user_signed_in? %>
         <%= link_to "Users", users_path, class: "navbar-item" %>
+        <%= link_to "Tenants", tenants_path, class: "navbar-item" %>
+        <%= link_to "Members", members_path, class: "navbar-item" %>
       <% end %>
     </div>
 
@@ -74,4 +76,4 @@
       </div>
     </div>
   </div>
-</nav> 
+</nav>

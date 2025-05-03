@@ -1,98 +1,112 @@
 <div class="container">
-  <div class="box mb-5">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <h2 class="title is-4">Invite New Member</h2>
-        </div>
-      </div>
-    </div>
-
-    <div class="content">
-      <p>Inviting member to tenant: <strong><%= @tenant.name %></strong></p>
-      <%= form_tag invite_members_path, method: :get, class: "mt-4" do %>
-        <div class="field has-addons">
-          <div class="control is-expanded">
-            <%= email_field_tag :email, nil, class: "input", placeholder: "Enter email address", required: true %>
-          </div>
-          <div class="control">
-            <%= submit_tag "Send Invitation", class: "button is-primary" %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="box">
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <h1 class="title is-4">Members</h1>
-        </div>
-        <div class="level-item">
-          <span class="tag is-info is-light"><%= @members.count %> members</span>
-        </div>
-      </div>
-      <div class="level-right">
-        <%= link_to new_member_path, class: "button is-primary" do %>
+  <% if @tenant.nil? %>
+    <div class="box">
+      <div class="notification is-warning">
+        <p>No tenants exist yet. You need to create a tenant before you can manage members.</p>
+        <%= link_to new_tenant_path, class: "button is-primary mt-3" do %>
           <span class="icon">
             <i class="fas fa-plus"></i>
           </span>
-          <span>New Member</span>
+          <span>Create First Tenant</span>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="box mb-5">
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <h2 class="title is-4">Invite New Member</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <p>Inviting member to tenant: <strong><%= @tenant.name %></strong></p>
+        <%= form_tag invite_members_path, method: :get, class: "mt-4" do %>
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <%= email_field_tag :email, nil, class: "input", placeholder: "Enter email address", required: true %>
+            </div>
+            <div class="control">
+              <%= submit_tag "Send Invitation", class: "button is-primary" %>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
 
-    <div class="table-container">
-      <% if @members.any? %>
-        <table class="table is-striped is-hoverable is-fullwidth">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>User</th>
-              <th>Tenant</th>
-              <th>Created At</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @members.each do |member| %>
-              <tr>
-                <td><%= member.id %></td>
-                <td><%= member.user.email if member.user %></td>
-                <td><%= member.tenant.name if member.tenant %></td>
-                <td><%= member.created_at.strftime("%B %d, %Y") %></td>
-                <td>
-                  <div class="buttons">
-                    <%= link_to member_path(member), class: "button is-small is-info" do %>
-                      <span class="icon">
-                        <i class="fas fa-eye"></i>
-                      </span>
-                      <span>View</span>
-                    <% end %>
-                    <%= link_to edit_member_path(member), class: "button is-small is-warning" do %>
-                      <span class="icon">
-                        <i class="fas fa-edit"></i>
-                      </span>
-                      <span>Edit</span>
-                    <% end %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <div class="has-text-centered py-6">
-          <p class="has-text-grey mb-4">No members found</p>
+    <div class="box">
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <h1 class="title is-4">Members</h1>
+          </div>
+          <div class="level-item">
+            <span class="tag is-info is-light"><%= @members.count %> members</span>
+          </div>
+        </div>
+        <div class="level-right">
           <%= link_to new_member_path, class: "button is-primary" do %>
             <span class="icon">
               <i class="fas fa-plus"></i>
             </span>
-            <span>Add your first member</span>
+            <span>New Member</span>
           <% end %>
         </div>
-      <% end %>
+      </div>
+
+      <div class="table-container">
+        <% if @members.any? %>
+          <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Tenant</th>
+                <th>Created At</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @members.each do |member| %>
+                <tr>
+                  <td><%= member.id %></td>
+                  <td><%= member.user.email if member.user %></td>
+                  <td><%= member.tenant.name if member.tenant %></td>
+                  <td><%= member.created_at.strftime("%B %d, %Y") %></td>
+                  <td>
+                    <div class="buttons">
+                      <%= link_to member_path(member), class: "button is-small is-info" do %>
+                        <span class="icon">
+                          <i class="fas fa-eye"></i>
+                        </span>
+                        <span>View</span>
+                      <% end %>
+                      <%= link_to edit_member_path(member), class: "button is-small is-warning" do %>
+                        <span class="icon">
+                          <i class="fas fa-edit"></i>
+                        </span>
+                        <span>Edit</span>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="has-text-centered py-6">
+            <p class="has-text-grey mb-4">No members found</p>
+            <%= link_to new_member_path, class: "button is-primary" do %>
+              <span class="icon">
+                <i class="fas fa-plus"></i>
+              </span>
+              <span>Add your first member</span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>

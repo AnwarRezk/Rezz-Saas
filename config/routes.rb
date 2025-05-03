@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show] do
+    member do # work on specific instance of the user resource
+      patch :resend_invitation #/users/:id/resend_invitation
+    end
+  end
   resources :tenants do
     get :user_tenants, on: :collection
   end

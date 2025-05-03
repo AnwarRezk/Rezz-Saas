@@ -42,6 +42,7 @@ group :development do
   gem "web-console"
   gem "debug", platforms: %i[ mri windows ]
   gem "annotate"
+  gem "letter_opener"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

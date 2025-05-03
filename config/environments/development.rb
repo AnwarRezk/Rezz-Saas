@@ -41,6 +41,15 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Use letter_opener for emails in development
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+  LetterOpener.configure do |config|
+    config.location = Rails.root.join('tmp', 'letter_opener')
+    config.message_template = :light
+    config.file_uri_scheme = 'file://'
+  end
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

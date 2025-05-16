@@ -8,7 +8,7 @@ class MembersController < ApplicationController
   end
 
   def invite
-    @tenant = Tenant.first # For now, using the first tenant as requested
+    # @tenant = Tenant.first # For now, using the first tenant as requested
     email = params[:email]
 
     if email.present?
@@ -17,7 +17,7 @@ class MembersController < ApplicationController
 
       if user
         # If user exists, try to create member
-        member = Member.new(user: user, tenant: @tenant)
+        member = Member.new(user: user)
         if member.save
           redirect_to members_path, notice: "Member was successfully added."
         else
@@ -28,7 +28,7 @@ class MembersController < ApplicationController
         user = User.invite!({ email: email }, current_user)
         if user.persisted?
           # Create member after invitation
-          member = Member.create(user: user, tenant: @tenant)
+          member = Member.create(user: user)
           redirect_to members_path, notice: "Invitation sent successfully."
         else
           redirect_to members_path, alert: "Error sending invitation."

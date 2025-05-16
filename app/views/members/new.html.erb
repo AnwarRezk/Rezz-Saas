@@ -2,7 +2,13 @@
   <div class="columns is-centered">
     <div class="column is-6">
       <div class="box">
-        <h1 class="title is-3">New Member</h1>
+        <h1 class="title is-3">
+          New Member
+          <span class="icon">
+            <i class="fas fa-arrow-right"></i>
+          </span>
+          <%= @member.tenant.name %>
+        </h1>
 
         <%= render "form", member: @member %>
 

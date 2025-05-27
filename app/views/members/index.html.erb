@@ -65,6 +65,7 @@
                 <th>User</th>
                 <th>Tenant</th>
                 <th>Created At</th>
+                <th>Invitation Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -75,6 +76,21 @@
                   <td><%= member.user.email if member.user %></td>
                   <td><%= member.tenant.name if member.tenant %></td>
                   <td><%= member.created_at.strftime("%B %d, %Y") %></td>
+                  <td>
+                    <% if member.user.created_by_invite? %>
+                      <div class="is-flex is-align-items-center">
+                        <span class="tag is-success mr-2">Created By Invite</span>
+                        <% if member.user.invitation_accepted_at.present? %>
+                          <span class="tag is-warning">Accepted</span>
+                        <% else %>
+                          <%= button_to 'Resend Invitation',
+                              resend_invitation_user_path(member.user),
+                              method: :patch,
+                              class: "button is-small is-link" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </td>
                   <td>
                     <div class="buttons">
                       <%= link_to member_path(member), class: "button is-small is-info" do %>

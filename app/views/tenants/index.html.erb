@@ -28,6 +28,7 @@
               <th>Name</th>
               <th>Users</th>
               <th>Created At</th>
+              <th></th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -38,6 +39,18 @@
                 <td><%= tenant.name %></td>
                 <td><%= tenant.users.compact.join(', ') if tenant.users %></td>
                 <td><%= tenant.created_at.strftime("%B %d, %Y") %></td>
+                <td>
+                  <% if current_user.tenants.include?(tenant)%>
+                    <% if current_user.tenant == tenant%>
+                      <span class="tag is-success">Current Tenant</span>
+                    <% else %>
+                      <%= button_to 'Switch Tenant',
+                      switch_tenant_path(tenant),
+                      method: :patch,
+                      class: "button is-small is-link" %>
+                    <% end %>
+                  <% end %>
+                </td>
                 <td>
                   <div class="buttons">
                     <%= link_to tenant_path(tenant), class: "button is-small is-info" do %>

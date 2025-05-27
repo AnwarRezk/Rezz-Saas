@@ -14,5 +14,6 @@ class Member < ApplicationRecord
 
   validates :tenant_id, presence: true
   validates_uniqueness_of :user_id, scope: :tenant_id, message: 'already associated with a tenant'
+  #validates_uniqueness_to_tenant :user_id
   acts_as_tenant(:tenant)
 end

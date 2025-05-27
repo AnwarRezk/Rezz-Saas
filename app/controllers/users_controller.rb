@@ -7,10 +7,11 @@ class UsersController < ApplicationController
 
     def resend_invitation
         if @user.invitation_accepted_at.present?
-            redirect_to users_path, alert: "User has already accepted the invitation."
+            redirect_to members_path, alert: "User has already accepted the invitation."
         else
-            @user.invite! unless @user.invitation_token.present?
-            redirect_to users_path, notice: "Invitation resent successfully to #{@user.email}."
+            @user.invite! # unless @user.invitation_token.present?
+            MemberInvitationMailer.resend_invitation_email(@user, current_user).deliver_later
+            redirect_to members_path, notice: "Invitation resent successfully to #{@user.email}."
         end
     end
 

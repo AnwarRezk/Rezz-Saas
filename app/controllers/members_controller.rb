@@ -1,34 +1,33 @@
 class MembersController < ApplicationController
+  include RequireTenant
   before_action :set_member, only: %i[ show edit update destroy ]
 
   # GET /members or /members.json
   def index
     @members = Member.all
-    @tenant = Tenant.first # For now, using the first tenant as requested
+    @tenant = current_tenant
   end
 
   def invite
-    # @tenant = Tenant.first # For now, using the first tenant as requested
     email = params[:email]
 
     if email.present?
-      # Check if user exists
-      user = User.find_by(email: email)
+      existing_user = User.find_by(email: email)
 
-      if user
-        # If user exists, try to create member
-        member = Member.new(user: user)
+      if existing_user
+        member = Member.new(user: existing_user, tenant: current_tenant)
         if member.save
+          MemberInvitationMailer.new_invitation_email(member, current_user).deliver_later
           redirect_to members_path, notice: "Member was successfully added."
         else
           redirect_to members_path, alert: "User is already a member of this tenant."
         end
       else
-        # If user doesn't exist, send invitation
         user = User.invite!({ email: email }, current_user)
-        if user.persisted?
-          # Create member after invitation
-          member = Member.create(user: user)
+        if user.persisted? #Creates the entry in the database
+          user.update(tenant_id: current_tenant.id)
+          member = Member.create(user: user, tenant: current_tenant)
+          MemberInvitationMailer.new_invitation_email(member, current_user).deliver_later
           redirect_to members_path, notice: "Invitation sent successfully."
         else
           redirect_to members_path, alert: "Error sending invitation."

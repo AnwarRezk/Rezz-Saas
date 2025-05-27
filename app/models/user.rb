@@ -18,6 +18,7 @@
 #  invited_by_type        :string
 #  invited_by_id          :bigint
 #  invitations_count      :integer          default(0)
+#  tenant_id              :integer
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -25,8 +26,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :invitable
+
   has_many :members, dependent: :destroy
   has_many :tenants, through: :members
+
+  belongs_to :tenant, required: false
 
   def to_s
     email

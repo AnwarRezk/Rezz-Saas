@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   end
   resources :tenants do
     get :user_tenants, on: :collection
+    member do
+      patch :switch #find the current tenant_id
+    end
   end
   resources :members do
     get :invite, on: :collection

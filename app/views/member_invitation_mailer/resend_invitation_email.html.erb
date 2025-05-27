@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to <%= @tenant.name %>!</h1>
+
+    <% if @invitation_url %>
+      <p>
+        This mail is a re-invitation to join <%= @tenant.name %> by <%= @inviter.email %>.:
+      </p>
+      <p>
+        <%= link_to 'Accept invitation', @invitation_url %>
+      </p>
+      <p>
+        This invitation link will expire in <%= Devise.invite_for ? Devise.invite_for.to_i : 0 %> days.
+        If you don't want to accept the invitation, you can simply ignore this email.
+      </p>
+    <% else %>
+      <p>
+        You already have an account with us. You've been added as a member to <%= @tenant.name %>.
+        You can log in to your account to access the tenant.
+      </p>
+    <% end %>
+
+    <p>If you have any questions, please contact <%= @inviter.email %>.</p>
+  </body>
+</html>

@@ -33,3 +33,44 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore node modules and yarn files
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+# Ignore test coverage
+/coverage/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore database dumps
+*.dump
+*.sql
+
+# Ignore compiled assets
+/public/packs
+/public/packs-test
+/public/assets
+
+# Ignore uploaded files in development
+/public/uploads
+
+# Ignore cache files
+.sass-cache/
+.cache/
+
+# Ignore local configuration
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
